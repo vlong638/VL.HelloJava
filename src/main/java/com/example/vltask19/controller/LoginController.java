@@ -1,7 +1,9 @@
 package com.example.vltask19.controller;
 
+import com.example.vltask19.entity.User;
 import com.example.vltask19.model.UseLoginInfo;
 import com.example.vltask19.redis.RedisUtil;
+import com.example.vltask19.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,8 @@ import java.util.Date;
 public class LoginController {
     @Autowired
     private RedisUtil redisUtils;
+    @Autowired
+    private UserService userService;
 
     @RequestMapping("/login")
     public String login() {
@@ -23,13 +27,19 @@ public class LoginController {
     @RequestMapping(value = "/login/userLogin", method = RequestMethod.POST)
     @ResponseBody
     public String UserLogin(String userName, String userPassword) {
-        UseLoginInfo user = new UseLoginInfo();
-        user.setName(userName);
+        User user = new User();
+        user.setUserName(userName);
         user.setPassword(userPassword);
         user.setLoginTime(new Date());
         String sessionId = String.valueOf(user.hashCode());
         if (redisUtils.getString(sessionId) != null) {
             return "登录失败,用户已登录";
+        }
+
+        User dbUser = userService.getUserByUserNameAndPassword(user);
+        if (dbUser == null)
+        {
+            userService.saveUser(user);
         }
         redisUtils.setString(sessionId, sessionId,3000);
         return "登录成功";
