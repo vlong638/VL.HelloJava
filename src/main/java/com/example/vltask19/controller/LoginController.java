@@ -26,7 +26,7 @@ public class LoginController {
 
     @RequestMapping(value = "/login/userLogin", method = RequestMethod.POST)
     @ResponseBody
-    public String UserLogin(String userName, String userPassword) {
+    public String userLogin(String userName, String userPassword) {
         User user = new User();
         user.setUserName(userName);
         user.setPassword(userPassword);
@@ -43,7 +43,5 @@ public class LoginController {
         }
         redisUtils.setString(sessionId, sessionId,3000);
         return "登录成功";
-
-//        userService.saveUser(user);
     }
 }

@@ -17,7 +17,7 @@ public class AOPClass {
 //    private static final Logger logger = Logger.getLogger(AOPClass.class);
 
     //配置切点
-    @Pointcut("execution(* com.example.vltask19.controller.LoginController.UserLogin(..))")
+    @Pointcut("execution(* com.example.vltask19.controller.LoginController.userLogin(..))")
     public void log() {
     }
 

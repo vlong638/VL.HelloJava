@@ -8,6 +8,6 @@ public class RestController {
 
     @RequestMapping("/")
     public String Hello() {
-        return "hello world";
+        return "欢迎回来";
     }
 }
