@@ -1,8 +1,9 @@
 package com.example.vltask19.service;
 
 import com.example.vltask19.entity.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     User getUser(Integer id);
 

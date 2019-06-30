@@ -18,6 +18,14 @@ public class VlUserDetails implements Serializable, UserDetails {
     public VlUserDetails() {
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setRoles(List<Role>  roles) {
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
