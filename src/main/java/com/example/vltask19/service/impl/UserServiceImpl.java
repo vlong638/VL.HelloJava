@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean saveUser(User user) {
-        if (user == null || user.getUserName() == null || user.getUserName().equals("") || user.getPassword() == null || user.getPassword().equals("")) {
+        if (user == null || user.getUsername() == null || user.getUsername().equals("") || user.getPassword() == null || user.getPassword().equals("")) {
             return false;
         }
         usersMapper.saveUser(user);

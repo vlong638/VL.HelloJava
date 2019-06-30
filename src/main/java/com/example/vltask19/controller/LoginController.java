@@ -1,7 +1,6 @@
 package com.example.vltask19.controller;
 
 import com.example.vltask19.entity.User;
-import com.example.vltask19.model.UseLoginInfo;
 import com.example.vltask19.redis.RedisUtil;
 import com.example.vltask19.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class LoginController {
     @ResponseBody
     public String userLogin(String userName, String userPassword) {
         User user = new User();
-        user.setUserName(userName);
+        user.setUsername(userName);
         user.setPassword(userPassword);
         user.setLoginTime(new Date());
         String sessionId = String.valueOf(user.hashCode());

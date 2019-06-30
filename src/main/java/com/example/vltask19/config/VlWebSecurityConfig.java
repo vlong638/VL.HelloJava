@@ -1,7 +1,9 @@
 package com.example.vltask19.config;
 
 import com.example.vltask19.customEnum.AuthRoles;
+import com.example.vltask19.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
@@ -31,8 +33,10 @@ import java.util.Map;
  * @author xiajinhui
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)/*启用基于注解的安全配置*/
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)/*启用基于注解的安全配置*/
 public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    UserService userService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -42,7 +46,9 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /*进行基于内存的登录及授权*/
+        auth.userDetailsService(userService);
+
+      /*  *//*进行基于内存的登录及授权*//*
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password("123456")
@@ -59,7 +65,7 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("role1")
                 .password("123456")
                 .roles(AuthRoles.RoleManager.toString())
-                /*加密*/
+                *//*加密*//*
                 .and()
                 .withUser("role2")
                 .password(new BCryptPasswordEncoder(10).encode("456789"))
@@ -72,7 +78,7 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("user2")
                 .password(new BCryptPasswordEncoder(10).encode("456789"))
                 .roles(AuthRoles.UserManager.toString())
-        ;
+        ;*/
         /*TODO 改为基于数据库的登录及授权*/
         /*auth.jdbcAuthentication();*/
     }
@@ -108,11 +114,11 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
                         httpServletResponse.setContentType("application/json;charset=utf-8");
                         httpServletResponse.setStatus(200);
-                        PrintWriter out =httpServletResponse.getWriter();
-                        Map<String,Object> map =new HashMap<>(2);
+                        PrintWriter out = httpServletResponse.getWriter();
+                        Map<String, Object> map = new HashMap<>(2);
                         Object principal = authentication.getPrincipal();
-                        map.put("msg",principal);
-                        map.put("status",200);
+                        map.put("msg", principal);
+                        map.put("status", 200);
                         ObjectMapper om = new ObjectMapper();
                         out.write(om.writeValueAsString(map));
                         out.flush();
@@ -126,8 +132,8 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                         httpServletResponse.setContentType("application/json;charset=utf-8");
                         httpServletResponse.setStatus(401);
                         PrintWriter out = httpServletResponse.getWriter();
-                        Map<String,Object> map = new HashMap<>(2);
-                        map.put("status",401);
+                        Map<String, Object> map = new HashMap<>(2);
+                        map.put("status", 401);
                         //这里面有哪些,取决于Security内置的登录默认抛出哪些异常
                         //并且定义exception和handler处理这是一个值得参考的处理形式
                         if (e instanceof LockedException) {
@@ -157,7 +163,8 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .addLogoutHandler(new LogoutHandler() {
                     @Override
-                    public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {}
+                    public void logout(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) {
+                    }
                 })
                 /*显式指定注销登录成功后的反馈*/
                 .logoutSuccessHandler(new LogoutSuccessHandler() {
