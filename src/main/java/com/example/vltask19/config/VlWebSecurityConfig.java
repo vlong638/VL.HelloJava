@@ -30,7 +30,7 @@ import java.util.Map;
  * @author xiajinhui
  */
 @Configuration
-public class VLWebSercurityConfig extends WebSecurityConfigurerAdapter {
+public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     PasswordEncoder passwordEncoder() {
