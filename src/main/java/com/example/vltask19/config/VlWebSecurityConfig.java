@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.*;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,7 @@ import java.util.Map;
  * @author xiajinhui
  */
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true,securedEnabled = true)/*启用基于注解的安全配置*/
 public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
@@ -62,6 +64,14 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .withUser("role2")
                 .password(new BCryptPasswordEncoder(10).encode("456789"))
                 .roles(AuthRoles.RoleManager.toString())
+                .and()
+                .withUser("admin2")
+                .password(new BCryptPasswordEncoder(10).encode("456789"))
+                .roles(AuthRoles.Admin.toString())
+                .and()
+                .withUser("user2")
+                .password(new BCryptPasswordEncoder(10).encode("456789"))
+                .roles(AuthRoles.UserManager.toString())
         ;
         /*TODO 改为基于数据库的登录及授权*/
         /*auth.jdbcAuthentication();*/
@@ -69,6 +79,7 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /*统一路径访问权限控制*/
         http.authorizeRequests()
                 /*基于角色控制*/
                 .antMatchers("/log/**")
