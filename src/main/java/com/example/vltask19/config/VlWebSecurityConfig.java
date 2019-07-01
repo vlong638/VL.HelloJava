@@ -46,6 +46,7 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        /*改为基于数据库的登录及授权*/
         auth.userDetailsService(userService);
 
       /*  *//*进行基于内存的登录及授权*//*
@@ -79,7 +80,7 @@ public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .password(new BCryptPasswordEncoder(10).encode("456789"))
                 .roles(AuthRoles.UserManager.toString())
         ;*/
-        /*TODO 改为基于数据库的登录及授权*/
+        /*改为基于数据库的登录及授权*/
         /*auth.jdbcAuthentication();*/
     }
 

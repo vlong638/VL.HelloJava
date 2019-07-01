@@ -1,5 +1,6 @@
 package com.example.vltask19.service.impl;
 
+import com.example.vltask19.customEnum.AuthRoles;
 import com.example.vltask19.entity.User;
 import com.example.vltask19.entity.Role;
 import com.example.vltask19.mapper.UserMapper;
@@ -67,10 +68,10 @@ public class UserServiceImpl implements UserService {
         user.setPassword(new BCryptPasswordEncoder(10).encode("456789"));
         List<Role> roles = new ArrayList<Role>();
         Role role1 = new Role();
-        role1.setName("Admin");
+        role1.setName(AuthRoles.Admin.toString());
         roles.add(role1);
         Role role2 = new Role();
-        role2.setName("RoleManager");
+        role2.setName(AuthRoles.RoleManager.toString());
         roles.add(role2);
         details.setUser(user);
         details.setRoles(roles);
