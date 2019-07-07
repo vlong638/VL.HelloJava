@@ -4,4 +4,7 @@
     <insert id="saveRole" parameterType="com.example.vltask19.entity.Role" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO `role`(`Name`,`Level`,`IsSys`) VALUES(#{name},#{level},#{isSys})
     </insert>
+    <select id="getById" resultType="com.example.vltask19.entity.Role" parameterType="Long">
+        select * from Role where Id = #{id}
+    </select>
 </mapper>

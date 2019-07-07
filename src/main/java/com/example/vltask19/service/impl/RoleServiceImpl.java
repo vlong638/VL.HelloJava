@@ -22,4 +22,9 @@ public class RoleServiceImpl implements RoleService {
         roleMapper.saveRole(role);
         return role.getId();
     }
+
+    @Override
+    public Role getById(Long id) {
+        return roleMapper.getById(id);
+    }
 }

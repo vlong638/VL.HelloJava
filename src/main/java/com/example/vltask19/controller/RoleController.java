@@ -29,4 +29,11 @@ public class RoleController {
         roleService.saveRole(testRole);
         return "创建角色成功";
     }
+
+    @GetMapping("/role/getRoleById")
+    public String getRoleById(long id){
+        Role role = roleService.getById(id);
+        return "成功获取角色";
+    }
+
 }

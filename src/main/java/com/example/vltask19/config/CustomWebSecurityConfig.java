@@ -34,7 +34,7 @@ import java.util.Map;
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)/*启用基于注解的安全配置*/
-public class VlWebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class CustomWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
