@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @org.springframework.web.bind.annotation.RestController
 public class RoleController {
     @Autowired
@@ -36,4 +38,9 @@ public class RoleController {
         return "成功获取角色";
     }
 
+    @GetMapping("/role/getAllRoles")
+    public String getAllRoles(){
+        List<Role> roles = roleService.getAllRoles();
+        return "成功获取角色";
+    }
 }

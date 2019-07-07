@@ -3,6 +3,8 @@ package com.example.vltask19.mapper;
 import com.example.vltask19.entity.Role;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface RoleMapper {
     /**
@@ -15,4 +17,10 @@ public interface RoleMapper {
      * @return
      */
     Role getById(Long id);
+
+    /**
+     * @param
+     * @return
+     */
+    List<Role> getAllRoles();
 }
